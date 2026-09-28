@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum DiagramType {
+  USE_CASE
+}
+
+enum RelationshipKind {
+  ASSOCIATION
+  GENERALIZATION
+  INCLUDE
+  EXTEND
+}
+
+enum ElementType {
+  ACTOR
+  USE_CASE
+}
+
+enum AssociationDirection {
+  TO_USE_CASE
+  TO_ACTOR
+  UNDIRECTED
+}
+
+model Diagram {
+  id        String   @id @default(uuid())
+  title     String
+  type      DiagramType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  actors        Actor[]
+  useCases      UseCase[]
+  relationships Relationship[]
+}
+
+model Actor {
+  id        String  @id @default(uuid())
+  name      String
+  diagramId String
+  diagram   Diagram @relation(fields: [diagramId], references: [id], onDelete: Cascade)
+
+  @@index([diagramId])
+}
+
+model UseCase {
+  id        String  @id @default(uuid())
+  name      String
+  diagramId String
+  diagram   Diagram @relation(fields: [diagramId], references: [id], onDelete: Cascade)
+
+  @@index([diagramId])
+}
+
+// Relacionamento polimórfico: source/target podem ser Actor ou UseCase, por isso
+// não há FK direta para Actor/UseCase. Integridade referencial é garantida em
+// nível de aplicação pelo RelationshipRuleEngine (ver src/domain).
+model Relationship {
+  id        String  @id @default(uuid())
+  diagramId String
+  diagram   Diagram @relation(fields: [diagramId], references: [id], onDelete: Cascade)
+
+  kind RelationshipKind
+
+  sourceType ElementType
+  sourceId   String
+  targetType ElementType
+  targetId   String
+
+  direction AssociationDirection?
+  condition String?
+
+  createdAt DateTime @default(now())
+
+  @@index([diagramId])
+  @@index([sourceType, sourceId])
+  @@index([targetType, targetId])
+}

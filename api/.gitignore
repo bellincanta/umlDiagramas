@@ -1,0 +1,13 @@
+node_modules
+dist
+coverage
+# Keep environment variables out of version control
+.env
+
+/generated/prisma
+
+# SQLite databases (dev/test) and sidecar files
+*.db
+*.db-journal
+*.db-wal
+*.db-shm

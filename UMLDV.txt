@@ -1,0 +1,355 @@
+No 1º ano de TADS, temos um aluno cego, ministro a disciplina de Engenharia de Software, no proximo semestre irei ensinar UML e consequentemente ensinarei a criação dos diagramas no Eclipse Papyrus, no entanto, para o aluno com cegueira analisei algumas alternativas ao Papyrus e nenhuma atendeu a minha espectativa, assim, gostaria que me auxiliasse a criar uma API para que este aluno consiga apenas informado por exemplo Nome do Ator, Nome do Caso de Uso e o tipo de relacionamento o sistema gere o diagrama. Analise o texto abaixo e me ajude a elaborar um plano para implementarmos este sistema.
+
+Objetivo: Construir uma API usando a arquitetura MVC para perimitri que os deficientes visuais elaborem e gerenciem diagramas da UML.
+
+Arquitetura Física: Model/View/Controller
+
+Arquitetura Lógica: TypeScript com Orientação a objetos
+
+Diagramas 
+
+Diagrama de casos de uso
+
+O diagrama de casos de uso (use case diagram) é, dentre todos os diagramas da UML, o mais abstrato, flexível e informal. 
+
+É utilizado, principalmente, no início da modelagem do sistema, a partir do documento de requisitos, e pode ser consultado e possivelmente modificado durante todo o processo de engenharia. 
+
+Seu objetivo é o de modelar as funcionalidades e serviços oferecidos pelo sistema, buscando, por meio de uma linguagem simples, demonstrar o comportamento externo do sistema a partir da perspectiva do usuário.
+
+Há uma correspondência entre os requisitos funcionais previstos para o software e os casos de uso;
+
+Os requisitos não funcionais não aparecem no diagrama de casos de uso, pois não constituem o foco da modelagem que sendo realizada;
+
+O diagrama de casos de uso é composto por atores, casos de uso e seus relacionamentos. 
+
+
+Atores
+
+Um ator representa um papel que um ser humano, um dispositivo de hardware ou até mesmo outro sistema desempenha com o sistema;
+
+Um ator pode ser qualquer elemento externo que interage com o software; 
+
+O nome do ator identifica qual é o papel assumido por ele dentro do diagrama;
+
+Um caso de uso é sempre iniciado por um estímulo de um ator e, ocasionalmente, outros atores também podem participar.
+
+
+CASOS DE USO
+
+Um caso de uso especifica o comportamento de um sistema ou de parte de um, referindo-se a serviços, tarefas ou funções apresentadas.
+
+
+Normalmente, os nomes de casos de uso são breves expressões verbais ativas;
+
+Nomeando algum comportamento encontrado no vocabulário do sistema cuja modelagem está sendo realizada a partir do documento de requisitos;
+
+São verbos que podem ser usados para nomear os casos de uso: efetuar, cadastrar, consultar, emitir, registrar, realizar, manter, verificar, entre outros.
+
+
+Em sua forma mais simples, um caso de uso é mostrado como uma elipse, com os atores envolvidos representados por figuras-palito;
+
+
+Diagramas de casos de uso dão uma visão simples de uma interação;
+
+Logo, é necessário fornecer mais detalhes para entender o que está envolvido;
+
+Esses detalhes podem ser uma simples descrição textual, uma descrição estruturada em uma tabela ou um diagrama de sequência.
+
+
+Relacionamento entre Casos de Uso e Atores
+
+Os casos de uso representam conjuntos bem definidos de funcionalidades do sistema, os quais precisam se relacionar com outros casos de uso e com atores que enviaram e receberam mensagens deles;
+
+Os casos de uso podem ter relacionamentos de associação, generalização, extensão e inclusão da seguinte forma:
+
+Para relacionamentos entre atores e casos de uso: somente associação;
+Para relacionamentos de atores entre si: somente generalização;
+Para relacionamentos de casos de uso entre si: generalização, extensão e inclusão.
+
+
+Associação
+
+A associação é o único relacionamento possível entre ator e caso de uso e sempre é binária, ou seja, envolve apenas dois elementos;
+
+Um relacionamento de associação demonstra que o ator utiliza a funcionalidade representada pelo caso de uso;
+
+Esse tipo de relacionamento é representado por uma reta ligando o ator ao caso de uso. 
+
+Pode ser que essa reta possua, em sua extremidade, uma seta, que indica a navegabilidade dessa associação, ou seja, se as informações são fornecidas pelo ator em caso de uso (nesse caso, a seta aponta para o caso de uso), se são transmitidas pelo caso de uso ao ator (nesse caso, a seta aponta para o ator) ou ambos (a reta não possui setas).
+
+
+Generalização
+
+O relacionamento de generalização entre casos de uso pode ocorrer quando existirem dois ou mais casos de usos com características semelhantes, apresentando pequenas diferenças entre si;
+
+Quando isso acontece, define-se um caso de uso geral, o qual deverá possuir as características compartilhadas por todos os casos de uso em questão;
+
+Relacionando esse caso de uso geral com os casos de uso específicos, os quais devem conter somente a documentação das características específicas de cada um deles.
+
+
+Inclusão
+
+Possível somente entre casos de uso;
+
+Utilizado quando existem ações comuns a mais de um caso de uso;
+
+A documentação dessas ações é colocada em um caso de uso específico permitindo que outros casos se utilizem dessas ações, evitando a descrição de uma mesma sequência de passos em vários casos de uso.
+
+
+Um relacionamento de inclusão entre casos de uso significa que o caso de uso base incorpora explicitamente o comportamento de outro;
+
+O relacionamento de inclusão pode ser comparado com a chamada sub-rotina; 
+
+Indica uma obrigatoriedade, ou seja, quando um caso de uso base possui um relacionamento de inclusão com outro caso de uso, a execução do primeiro obriga, também, a execução do segundo.
+
+
+A representação do relacionamento de inclusão é feita por meio de uma reta tracejada que contém uma seta em uma de suas extremidades que é rotulada com a palavra-chave <<include>>;
+
+A seta deve sempre apontar para o caso de uso a ser incluído.
+
+
+Extensão
+
+Possível somente entre casos de uso;
+
+Utilizado para modelar as rotinas opcionais de um sistema que ocorrerão somente se uma determinada condição for satisfeita;
+
+A extensão separa um comportamento obrigatório de um opcional.
+
+
+---
+
+Passo a passo Sistema UML Deficientes Visuais 
+
+node -v && npm -v
+
+mkdir -p /Users/nelsonbellincanta/Documents/appS/api && ls /Users/nelsonbellincanta/Documents/appS
+
+cd /Users/nelsonbellincanta/Documents/appS/api && npm init -y
+
+npm install express zod @prisma/client uuid && npm install -D typescript tsx @types/node @types/express @types/uuid prisma vitest supertest @types/supertest @vitest/coverage-v8
+
+npx prisma --version
+
+npx prisma init --datasource-provider sqlite 2>&1 | tail -30
+
+npm install -D dotenv
+
+npx prisma migrate dev --name init 2>&1 | tail -40
+
+npx tsc --noEmit 2>&1 | head -60
+
+npx vitest run tests/unit/domain 2>&1 | tail -80
+
+npx vitest run tests/unit/domain --coverage 2>&1 | tail -50
+
+npx vitest run tests/unit/domain --coverage 2>&1 | tail -60
+
+npx prisma generate 2>&1 | tail -30
+
+npx tsc --noEmit 2>&1 | head -80
+
+npx tsc --noEmit 2>&1 | head -60
+
+npm view @prisma/adapter-better-sqlite3 version 2>&1; npm view @prisma/adapter-better-sqlite3 peerDependencies 2>&1
+
+npm install @prisma/adapter-better-sqlite3 2>&1 | tail -15
+
+npx tsc --noEmit 2>&1 | head -60
+
+npx tsc --noEmit 2>&1 | head -60
+
+npx vitest run tests/unit/domain 2>&1 | tail -20
+
+npx tsx tmp-smoke-test.ts 2>&1 | tail -60
+
+npx tsc --noEmit 2>&1 | head -60
+
+npx tsc --noEmit 2>&1 | head -60 && npx vitest run tests/unit 2>&1 | tail -80
+
+npx vitest run tests/unit 2>&1 | tail -30
+
+npx tsc --noEmit 2>&1 | head -60
+
+npx tsc --noEmit 2>&1 | head -80
+
+npx tsc --noEmit 2>&1 | head -80
+
+(npx tsx src/server.ts > /tmp/api-server.log 2>&1 &) && sleep 2 && cat /tmp/api-server.log
+
+cat /tmp/api-server.log; echo "---"; lsof -i :3000 2>/dev/null | head -5
+
+set -e
+BASE=http://localhost:3000/api/v1
+
+echo "=== create diagram ==="
+DIAGRAM=$(curl -s -X POST $BASE/diagrams -H "Content-Type: application/json" -d '{"title":"Sistema de Pedidos"}')
+echo "$DIAGRAM"
+DIAGRAM_ID=$(echo "$DIAGRAM" | node -pe 'JSON.parse(require("fs").readFileSync(0)).id')
+echo "diagramId=$DIAGRAM_ID"
+
+echo "=== create actor ==="
+ACTOR=$(curl -s -X POST $BASE/diagrams/$DIAGRAM_ID/actors -H "Content-Type: application/json" -d '{"name":"Cliente"}')
+echo "$ACTOR"
+ACTOR_ID=$(echo "$ACTOR" | node -pe 'JSON.parse(require("fs").readFileSync(0)).id')
+
+echo "=== create use cases ==="
+UC1=$(curl -s -X POST $BASE/diagrams/$DIAGRAM_ID/use-cases -H "Content-Type: application/json" -d '{"name":"Realizar Pedido"}')
+UC1_ID=$(echo "$UC1" | node -pe 'JSON.parse(require("fs").readFileSync(0)).id')
+UC2=$(curl -s -X POST $BASE/diagrams/$DIAGRAM_ID/use-cases -H "Content-Type: application/json" -d '{"name":"Validar Login"}')
+UC2_ID=$(echo "$UC2" | node -pe 'JSON.parse(require("fs").readFileSync(0)).id')
+echo "uc1=$UC1_ID uc2=$UC2_ID"
+
+echo "=== create association ==="
+curl -s -X POST $BASE/diagrams/$DIAGRAM_ID/relationships -H "Content-Type: application/json" \
+  -d "{\"type\":\"ASSOCIATION\",\"sourceId\":\"$ACTOR_ID\",\"targetId\":\"$UC1_ID\",\"direction\":\"TO_USE_CASE\"}"
+echo
+
+echo "=== create include ==="
+curl -s -X POST $BASE/diagrams/$DIAGRAM_ID/relationships -H "Content-Type: application/json" \
+  -d "{\"type\":\"INCLUDE\",\"sourceId\":\"$UC1_ID\",\"targetId\":\"$UC2_ID\"}"
+echo
+
+echo "=== GET diagram full json ==="
+curl -s $BASE/diagrams/$DIAGRAM_ID
+echo
+
+echo "=== GET render/mermaid ==="
+curl -s $BASE/diagrams/$DIAGRAM_ID/render/mermaid
+echo
+
+echo "=== GET render/text ==="
+curl -s $BASE/diagrams/$DIAGRAM_ID/render/text
+echo
+
+echo "=== invalid relationship: include between actor and use case ==="
+curl -s -o /tmp/invalid.json -w "%{http_code}\n" -X POST $BASE/diagrams/$DIAGRAM_ID/relationships -H "Content-Type: application/json" \
+  -d "{\"type\":\"INCLUDE\",\"sourceId\":\"$ACTOR_ID\",\"targetId\":\"$UC1_ID\"}"
+cat /tmp/invalid.json
+echo
+
+echo "=== delete diagram ==="
+curl -s -o /dev/null -w "%{http_code}\n" -X DELETE $BASE/diagrams/$DIAGRAM_ID
+
+echo "=== confirm 404 after delete ==="
+curl -s -o /tmp/after-delete.json -w "%{http_code}\n" $BASE/diagrams/$DIAGRAM_ID
+cat /tmp/after-delete.json
+
+lsof -ti :3000 | xargs -r kill 2>/dev/null; sleep 1; lsof -i :3000 2>/dev/null | head -3; echo "stopped"
+
+npx tsc --noEmit 2>&1 | head -60
+
+npx vitest run 2>&1 | tail -150
+
+npx vitest run 2>&1 | tail -150
+
+npx vitest run 2>&1 | tail -100
+
+npx vitest run --coverage 2>&1 | tail -50
+
+cd /Users/nelsonbellincanta/Documents/appS && ls -la api/test.db* 2>&1; npm create vite@latest web -- --template react-ts 2>&1 | tail -30
+
+cd /Users/nelsonbellincanta/Documents/appS/web && npm install 2>&1 | tail -20
+
+npm install @tanstack/react-query mermaid react-router-dom && npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom jest-axe @types/jest-axe @axe-core/react 2>&1 | tail -40
+
+npx vitest run 2>&1 | tail -150
+
+npx tsc -b 2>&1 | head -80
+
+npx tsc -b 2>&1 | head -60
+
+npx vitest run 2>&1 | tail -150
+
+rm -rf /Users/nelsonbellincanta/Documents/appS/web/src/assets /Users/nelsonbellincanta/Documents/appS/web/public/icons.svg
+npx tsc -b 2>&1 | head -80
+
+npx vitest run 2>&1 | tail -100
+
+npm run build 2>&1 | tail -60
+
+cd /Users/nelsonbellincanta/Documents/appS/api && (npx tsx src/server.ts > /tmp/api-server.log 2>&1 &) 
+sleep 2
+(npx vite --port 5173 > /tmp/web-server.log 2>&1 &)
+sleep 3
+echo "--- API log ---"; cat /tmp/api-server.log
+echo "--- WEB log ---"; cat /tmp/web-server.log
+echo "--- curl web root ---"
+curl -s http://localhost:5173/ | head -20
+
+curl -sv http://localhost:5173/ 2>&1 | tail -40
+
+lsof -ti :5173 | xargs -r kill 2>/dev/null; lsof -ti :3000 | xargs -r kill 2>/dev/null; sleep 1; echo done
+
+(npx tsx src/server.ts > /tmp/api-server.log 2>&1 &)
+sleep 2
+cat /tmp/api-server.log
+
+cd /Users/nelsonbellincanta/Documents/appS/web && (npx vite --port 5173 > /tmp/web-server.log 2>&1 &)
+sleep 3
+cat /tmp/web-server.log
+echo "--- curl ---"
+curl -s http://localhost:5173/ | head -20
+
+d=/Users/nelsonbellincanta/Documents/appS; while :; do
+  grep -Hm1 '^description:' "$d"/.claude/skills/*/SKILL.md 2>/dev/null
+  [ -e "$d/.git" ] || [ "$d" = / ] && break
+  d=$(dirname "$d")
+done
+echo "search done"
+
+which chromium-cli 2>&1; curl -sf http://localhost:5173/ >/dev/null && echo "web ok"; curl -sf http://localhost:3000/api/v1/diagrams >/dev/null && echo "api ok"
+
+npx --yes playwright --version 2>&1 | head -5; node -e "require.resolve('playwright')" 2>&1; npm ls -g playwright 2>&1 | head -5
+
+cd /private/tmp/claude-501/-Users-nelsonbellincanta-Documents-appS/cf1f0c22-d577-4364-b77b-045df4da6292/scratchpad && npm init -y >/dev/null 2>&1 && npm install playwright 2>&1 | tail -10
+
+cd /private/tmp/claude-501/-Users-nelsonbellincanta-Documents-appS/cf1f0c22-d577-4364-b77b-045df4da6292/scratchpad && npx playwright install chromium --with-deps 2>&1 | tail -40
+
+curl -sf http://localhost:5173/ >/dev/null && echo "web up" || echo "web DOWN"
+curl -sf http://localhost:3000/api/v1/diagrams >/dev/null && echo "api up" || echo "api DOWN"
+
+cd /private/tmp/claude-501/-Users-nelsonbellincanta-Documents-appS/cf1f0c22-d577-4364-b77b-045df4da6292/scratchpad && node verify.mjs 2>&1
+
+cd /private/tmp/claude-501/-Users-nelsonbellincanta-Documents-appS/cf1f0c22-d577-4364-b77b-045df4da6292/scratchpad && node verify.mjs 2>&1
+
+cd /Users/nelsonbellincanta/Documents/appS/api && npm install cors && npm install -D @types/cors
+
+lsof -ti :3000 | xargs -r kill 2>/dev/null; sleep 1
+(npx tsx src/server.ts > /tmp/api-server.log 2>&1 &)
+sleep 2
+cat /tmp/api-server.log
+curl -sf http://localhost:3000/api/v1/diagrams >/dev/null && echo "api ok"
+
+cd /private/tmp/claude-501/-Users-nelsonbellincanta-Documents-appS/cf1f0c22-d577-4364-b77b-045df4da6292/scratchpad && node verify.mjs 2>&1
+
+cd /private/tmp/claude-501/-Users-nelsonbellincanta-Documents-appS/cf1f0c22-d577-4364-b77b-045df4da6292/scratchpad && node verify.mjs 2>&1
+
+cd /private/tmp/claude-501/-Users-nelsonbellincanta-Documents-appS/cf1f0c22-d577-4364-b77b-045df4da6292/scratchpad && node verify.mjs 2>&1
+
+cd /Users/nelsonbellincanta/Documents/appS/api && rm -f dev.db && npx prisma db push --accept-data-loss 2>&1 | tail -15
+
+lsof -ti :3000 | xargs -r kill 2>/dev/null; sleep 1
+(npx tsx src/server.ts > /tmp/api-server.log 2>&1 &)
+sleep 2
+cat /tmp/api-server.log
+curl -sf http://localhost:3000/api/v1/diagrams
+
+cd /private/tmp/claude-501/-Users-nelsonbellincanta-Documents-appS/cf1f0c22-d577-4364-b77b-045df4da6292/scratchpad && node verify.mjs 2>&1
+
+cd /Users/nelsonbellincanta/Documents/appS/web && npx vitest run 2>&1 | tail -50
+
+lsof -ti :3000 | xargs -r kill 2>/dev/null
+lsof -ti :5173 | xargs -r kill 2>/dev/null
+sleep 1
+cd /Users/nelsonbellincanta/Documents/appS/api && rm -f dev.db
+echo "stopped and cleaned"
+
+npx tsc --noEmit 2>&1 | head -40 && npx vitest run 2>&1 | tail -40
+
+echo "=== API tests ===" && npx vitest run 2>&1 | tail -15
+cd /Users/nelsonbellincanta/Documents/appS/web && echo "=== WEB tests ===" && npx vitest run 2>&1 | tail -15
+cd /Users/nelsonbellincanta/Documents/appS/api && rm -f test.db test.db-journal dev.db
+echo "=== final tree ==="
+find /Users/nelsonbellincanta/Documents/appS -maxdepth 2 -not -path "*/node_modules*" -not -path "*/.git*" | sort
+
