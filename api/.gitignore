@@ -4,7 +4,7 @@ coverage
 # Keep environment variables out of version control
 .env
 
-/generated/prisma
+#/generated/prisma
 
 # SQLite databases (dev/test) and sidecar files
 *.db
