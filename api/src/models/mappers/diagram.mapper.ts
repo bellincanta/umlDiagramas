@@ -4,7 +4,7 @@ import type {
   ElementType,
   Relationship as PrismaRelationshipRecord,
   UseCase as PrismaUseCaseRecord,
-} from "prisma-generated-client/client.js";
+} from "../../generated/prisma/client.js";
 import type { DiagramElement } from "../../domain/diagram-element.js";
 import { DomainError } from "../../domain/errors/domain-errors.js";
 import { Actor } from "../../domain/usecase/actor.js";

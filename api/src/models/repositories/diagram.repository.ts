@@ -1,4 +1,4 @@
-import { DiagramType as PrismaDiagramType } from "prisma-generated-client/client.js";
+import { DiagramType as PrismaDiagramType } from "../../generated/prisma/client.js";
 import type { UseCaseDiagram } from "../../domain/usecase/use-case-diagram.js";
 import { toDomainUseCaseDiagram } from "../mappers/diagram.mapper.js";
 import { prisma } from "../prisma/client.js";
