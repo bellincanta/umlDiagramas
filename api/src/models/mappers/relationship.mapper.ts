@@ -2,7 +2,7 @@ import {
   ElementType as PrismaElementType,
   type Relationship as PrismaRelationshipRecord,
   RelationshipKind as PrismaRelationshipKind,
-} from "../../generated/prisma/client.js";
+} from "prisma-generated-client/client.js";
 import type { DiagramElement } from "../../domain/diagram-element.js";
 import { AssociationDirection, AssociationRelationship } from "../../domain/relationship/association-relationship.js";
 import { ExtendRelationship } from "../../domain/relationship/extend-relationship.js";
