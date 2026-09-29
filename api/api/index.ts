@@ -4,6 +4,6 @@
 // existente (ver src/app.ts). O roteamento de todas as URLs para cá é feito
 // pelo rewrite configurado em vercel.json.
 import "dotenv/config";
-//import { createApp } from "../src/app.js";
-import { createApp } from "../dist/src/app.js";
+import { createApp } from "../src/app.js";
+
 export default createApp();
